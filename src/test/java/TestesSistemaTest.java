@@ -46,4 +46,24 @@ public class TestesSistemaTest {
         org.junit.jupiter.api.Assertions.assertTrue(tituloAtual.contains("Google Doodles"),
                 "O teste falhou! A página atual não é o Google Doodles. Título encontrado: " + tituloAtual);
     }
+
+    @Test
+    public void testeExercicio2() {
+        // 1. Acessa a página de login do HerokuApp
+        driver.get("http://the-internet.herokuapp.com/login");
+
+        // 2. Preenche os campos de Usuário e Senha
+        // O site indica usar o usuário "tomsmith" e a senha "SuperSecretPassword!"
+        driver.findElement(org.openqa.selenium.By.id("username")).sendKeys("tomsmith");
+        driver.findElement(org.openqa.selenium.By.id("password")).sendKeys("SuperSecretPassword!");
+
+        // 3. Clica no botão de Login (que é um botão do tipo submit)
+        driver.findElement(org.openqa.selenium.By.cssSelector("button[type='submit']")).click();
+
+        // 4. Verifica se a mensagem de sucesso "You logged into a secure area!" aparece na tela
+        String mensagemAlerta = driver.findElement(org.openqa.selenium.By.id("flash")).getText();
+        org.junit.jupiter.api.Assertions.assertTrue(mensagemAlerta.contains("You logged into a secure area"),
+                "O teste falhou! A mensagem de sucesso no login não foi encontrada.");
+    }
+
 }
